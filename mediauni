@@ -1,3 +1,36 @@
 #!/bin/bash
 
-python3 /home/alessandro/coding/university/media_voti.py
+# Funzione per verificare se un comando esiste
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Verifica se Python è installato
+if ! command_exists python3; then
+    echo "Python3 non è installato. Installazione in corso..."
+    # Installa Python3 (comando per sistemi basati su Debian, es. Ubuntu)
+    sudo apt-get update
+    sudo apt-get install -y python3
+fi
+
+# Verifica se pip è installato
+if ! command_exists pip3; then
+    echo "pip3 non è installato. Installazione in corso..."
+    # Installa pip3
+    sudo apt-get install -y python3-pip
+fi
+
+# Verifica se tkinter è installato
+python3 -c "import tkinter" 2>/dev/null
+if [ $? -ne 0 ]; then
+    echo "tkinter non è installato. Installazione in corso..."
+    # Installa tkinter (comando per sistemi basati su Debian, es. Ubuntu)
+    sudo apt-get install -y python3-tk
+fi
+
+# Ottieni il percorso della directory corrente (dove si trova lo script Bash)
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# Esegui lo script Python usando il percorso assoluto
+python3 "$DIR/media_voti.py"
+
