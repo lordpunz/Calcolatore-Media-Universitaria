@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python3 /home/alessandro/coding/university/media_voti.py
+python3 media_voti.py
